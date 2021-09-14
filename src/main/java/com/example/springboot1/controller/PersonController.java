@@ -21,19 +21,18 @@ public class PersonController {
     @GetMapping("/persons")
     public ResponseEntity getPersons() {
 
-            //lijst met personen uit de database
-            Iterable<Person> persons = personRepository.findAll();
-            return ResponseEntity.ok(persons);
+        //lijst met personen uit de database
+        Iterable<Person> persons = personRepository.findAll();
+        return ResponseEntity.ok(persons);
 
     }
 
     @GetMapping("/persons/{nr}")
-    public ResponseEntity getPersons(@PathVariable long nr) {
+    public ResponseEntity getPerson(@PathVariable long nr) {
+        //Optional: kan zijn dat deze niet bestaat
         Optional<Person> person = personRepository.findById(nr);
         try {
-        //Optional: kan zijn dat deze niet bestaat
-
-        return ResponseEntity.ok(person);
+            return ResponseEntity.ok(person);
         } catch (Exception ex) {
             throw new RecordNotFoundException();
         }
